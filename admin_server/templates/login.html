@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaky Login</title>
+    <link href="{{url_for('static', path='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', path='css/login.css')}}" rel="stylesheet">
+</head>
+<body class="d-flex align-items-center h-100">
+<div class="form-signin w-100 m-auto">
+    <form class="bg-light-subtle p-5 shadow rounded needs-validation" novalidate method="POST">
+        <h1>Войти в систему</h1>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="email" id="login_input" name="login" placeholder="Пароль" required>
+            <label for="login_input">Логин</label>
+            <div class="invalid-feedback">
+                Введите логин!
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="password" id="pass_input" name="passwd" placeholder="Пароль" required>
+            <label for="pass_input">Пароль</label>
+            <div class="invalid-feedback">
+                Введите пароль!
+            </div>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Войти</button>
+    </form>
+</div>
+<script src="{{url_for('static', path='js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url_for('static', path='js/login.js')}}"></script>
+</body>
+</html>

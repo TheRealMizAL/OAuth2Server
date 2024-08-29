@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Leaky Admin Console</title>
+    <link href="{{url_for('static', path='dashboard/dashboard.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', path='bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+</head>
+<header class="navbar sticky-top flex-md-nowrap p-0 shadow-sm bg-dark-subtle">
+    <span class="navbar-brand col-md-3 col-lg-2 pt-2 pb-2 ps-4 fs-3">Leaky</span>
+</header>
+<body class="h-100">
+<div class="row h-100 m-0">
+    <div class="col-md-3 col-lg-2 pt-2 ps-3 shadow-sm border border-light-subtle bg-light-subtle">
+        <ul class="list-unstyled ps-0">
+            {% for category in menu_categories %}
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                        data-bs-toggle="collapse" data-bs-target="#{{category['collapse_id']}}" aria-expanded="false">
+                    {{category['name']}}
+                </button>
+                <div class="collapse true" id="{{category['collapse_id']}}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        {% for item_name, item_id in category['items'].items() %}
+                        <li><a data-bs-toggle="#{{item_id}}"
+                               class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                               onclick="selectDashboardTab(this)">{{item_name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+            {% endfor %}
+            <li class="border-top my-3"></li>
+        </ul>
+        <button class="btn d-inline-flex align-items-center rounded border-0">
+            Выйти
+        </button>
+    </div>
+    <div id="main-window" class="col-md-9 ms-sm-auto col-lg-10 ps-0">
+        {% for category in menu_categories %}
+        {% for item, item_id in category['items'].items() %}
+        <div id="{{item_id}}" class="collapse multi-dashboard border-bottom p-2">
+            {% include item_id + '.html' %}
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+<script src="{{url_for('static', path='bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url_for('static', path='dashboard/dashboard.js')}}"></script>
+<script src="{{url_for('static', path='dashboard/show_chart.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

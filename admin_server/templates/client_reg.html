@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaky Client Registration</title>
+    <link href="{{url_for('static', path='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', path='css/client_reg.css')}}" rel="stylesheet">
+</head>
+<body class="d-flex align-items-center h-100">
+<div class="modal fade" id="success-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: fit-content">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Client Secret</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-message">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="modal.toggle()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-50 m-auto">
+    <div class="bg-light-subtle p-5 my-5 shadow rounded">
+        <form class="needs-validation mb-3" novalidate name="client_info">
+            <h1>Зарегистрировать клиент</h1>
+            <div class="row align-items-center mb-3">
+                <label for="initial-token" class="col-sm-3 col-form-label">Initial token</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="initial-token" name="initial-token" placeholder="a93aefab5169eef7c46feaf7dd08a19a50cbf5b6b2d0d98b375f45afaf635dd4" required>
+                </div>
+            </div>
+            {% for key, value in properties.items()%}
+            {% if '#' not in key %}
+            <div class="row align-items-center mb-3">
+                <label for="{{key}}" class="col-sm-3 col-form-label">{{value['title']}}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="{{key}}" name="{{key}}" placeholder="{{value['placeholder']}}"
+                           {{'required' if key in req else ''}}>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </form>
+        <button class="btn btn-primary w-100 py-2" onclick="sendRegistrationRequest()">Зарегистрировать</button>
+    </div>
+</div>
+<script src="{{url_for('static', path='js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url_for('static', path='js/client_reg.js')}}"></script>
+</body>
+</html>
